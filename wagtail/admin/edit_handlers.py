@@ -182,6 +182,12 @@ class EditHandler:
     def on_form_bound(self):
         pass
 
+    def on_request_bound(self):
+        pass
+
+    def on_form_bound(self):
+        pass
+
     def __repr__(self):
         return '<%s with model=%s instance=%s request=%s form=%s>' % (
             self.__class__.__name__,
@@ -717,7 +723,8 @@ class InlinePanel(EditHandler):
 
             # ditto for the ORDER field, if present
             if self.formset.can_order:
-                subform.fields[ORDERING_FIELD_NAME].widget = forms.HiddenInput()
+                subform.fields[
+                    ORDERING_FIELD_NAME].widget = forms.HiddenInput()
 
             child_edit_handler = self.get_child_edit_handler()
             self.children.append(child_edit_handler.bind_to(
@@ -727,7 +734,8 @@ class InlinePanel(EditHandler):
         # in case the parent form errored and we need to re-render
         if self.formset.can_order and self.formset.is_valid():
             self.children.sort(
-                key=lambda child: child.form.cleaned_data[ORDERING_FIELD_NAME] or 1)
+                key=lambda child: child.form.cleaned_data[
+                                      ORDERING_FIELD_NAME] or 1)
 
         empty_form = self.formset.empty_form
         empty_form.fields[DELETION_FIELD_NAME].widget = forms.HiddenInput()
